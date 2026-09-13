@@ -1,0 +1,9 @@
+title: Meridian Shell Documentation
+description: A developer-focused cross-platform terminal platform built around real PTY sessions, terminal emulation, native graphics, GPU rendering, and extensible developer tooling.
+baseurl: ""
+url: "https://charanbalaji2005.github.io"
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+permalink: /:basename.html

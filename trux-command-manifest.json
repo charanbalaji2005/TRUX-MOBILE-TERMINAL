@@ -1,0 +1,260 @@
+{
+  "pwd": {
+    "status": "implemented",
+    "binary": "usr/bin/pwd",
+    "package": "toybox",
+    "category": "file"
+  },
+  "ls": {
+    "status": "implemented",
+    "binary": "usr/bin/ls",
+    "package": "toybox",
+    "category": "file"
+  },
+  "cd": {
+    "status": "implemented",
+    "binary": "builtin",
+    "package": "bash",
+    "category": "file"
+  },
+  "cp": {
+    "status": "implemented",
+    "binary": "usr/bin/cp",
+    "package": "toybox",
+    "category": "file"
+  },
+  "mv": {
+    "status": "implemented",
+    "binary": "usr/bin/mv",
+    "package": "toybox",
+    "category": "file"
+  },
+  "rm": {
+    "status": "implemented",
+    "binary": "usr/bin/rm",
+    "package": "toybox",
+    "category": "file"
+  },
+  "mkdir": {
+    "status": "implemented",
+    "binary": "usr/bin/mkdir",
+    "package": "toybox",
+    "category": "file"
+  },
+  "rmdir": {
+    "status": "implemented",
+    "binary": "usr/bin/rmdir",
+    "package": "toybox",
+    "category": "file"
+  },
+  "touch": {
+    "status": "implemented",
+    "binary": "usr/bin/touch",
+    "package": "toybox",
+    "category": "file"
+  },
+  "ln": {
+    "status": "implemented",
+    "binary": "usr/bin/ln",
+    "package": "toybox",
+    "category": "file"
+  },
+  "readlink": {
+    "status": "implemented",
+    "binary": "usr/bin/readlink",
+    "package": "toybox",
+    "category": "file"
+  },
+  "realpath": {
+    "status": "implemented",
+    "binary": "usr/bin/realpath",
+    "package": "toybox",
+    "category": "file"
+  },
+  "cat": {
+    "status": "implemented",
+    "binary": "usr/bin/cat",
+    "package": "toybox",
+    "category": "file"
+  },
+  "head": {
+    "status": "implemented",
+    "binary": "usr/bin/head",
+    "package": "toybox",
+    "category": "file"
+  },
+  "tail": {
+    "status": "implemented",
+    "binary": "usr/bin/tail",
+    "package": "toybox",
+    "category": "file"
+  },
+  "clear": {
+    "status": "implemented",
+    "binary": "usr/bin/clear",
+    "package": "trux-core",
+    "category": "file"
+  },
+  "echo": {
+    "status": "implemented",
+    "binary": "builtin",
+    "package": "bash",
+    "category": "file"
+  },
+  "grep": {
+    "status": "implemented",
+    "binary": "usr/bin/grep",
+    "package": "toybox",
+    "category": "text"
+  },
+  "sed": {
+    "status": "implemented",
+    "binary": "usr/bin/sed",
+    "package": "toybox",
+    "category": "text"
+  },
+  "awk": {
+    "status": "implemented",
+    "binary": "usr/bin/awk",
+    "package": "toybox",
+    "category": "text"
+  },
+  "tar": {
+    "status": "implemented",
+    "binary": "usr/bin/tar",
+    "package": "toybox",
+    "category": "archive"
+  },
+  "curl": {
+    "status": "implemented",
+    "binary": "usr/bin/curl",
+    "package": "curl",
+    "category": "network"
+  },
+  "wget": {
+    "status": "implemented",
+    "binary": "usr/bin/wget",
+    "package": "toybox",
+    "category": "network"
+  },
+  "git": {
+    "status": "implemented",
+    "binary": "usr/bin/git",
+    "package": "git",
+    "category": "development"
+  },
+  "python3": {
+    "status": "implemented",
+    "binary": "usr/bin/python3",
+    "package": "python",
+    "category": "development"
+  },
+  "pip": {
+    "status": "implemented",
+    "binary": "usr/bin/pip",
+    "package": "python",
+    "category": "development"
+  },
+  "nano": {
+    "status": "implemented",
+    "binary": "usr/bin/nano",
+    "package": "trux-core",
+    "category": "editor"
+  },
+  "pkg": {
+    "status": "implemented",
+    "binary": "usr/bin/pkg",
+    "package": "trux-core",
+    "category": "package-management"
+  },
+  "apt": {
+    "status": "implemented",
+    "binary": "usr/bin/apt",
+    "package": "trux-core",
+    "category": "package-management"
+  },
+  "dpkg": {
+    "status": "implemented",
+    "binary": "usr/bin/dpkg",
+    "package": "trux-core",
+    "category": "package-management"
+  },
+  "adb": {
+    "status": "implemented",
+    "binary": "usr/bin/adb",
+    "package": "trux-core",
+    "category": "android-tools"
+  },
+  "termux-info": {
+    "status": "implemented",
+    "binary": "usr/bin/termux-info",
+    "package": "trux-core",
+    "category": "android-bridge"
+  },
+  "termux-open": {
+    "status": "implemented",
+    "binary": "usr/bin/termux-open",
+    "package": "trux-core",
+    "category": "android-bridge"
+  },
+  "termux-open-url": {
+    "status": "implemented",
+    "binary": "usr/bin/termux-open-url",
+    "package": "trux-core",
+    "category": "android-bridge"
+  },
+  "termux-share": {
+    "status": "implemented",
+    "binary": "usr/bin/termux-share",
+    "package": "trux-core",
+    "category": "android-bridge"
+  },
+  "termux-toast": {
+    "status": "implemented",
+    "binary": "usr/bin/termux-toast",
+    "package": "trux-core",
+    "category": "android-bridge"
+  },
+  "termux-vibrate": {
+    "status": "implemented",
+    "binary": "usr/bin/termux-vibrate",
+    "package": "trux-core",
+    "category": "android-bridge"
+  },
+  "termux-notification": {
+    "status": "implemented",
+    "binary": "usr/bin/termux-notification",
+    "package": "trux-core",
+    "category": "android-bridge"
+  },
+  "termux-clipboard-get": {
+    "status": "implemented",
+    "binary": "usr/bin/termux-clipboard-get",
+    "package": "trux-core",
+    "category": "android-bridge"
+  },
+  "termux-clipboard-set": {
+    "status": "implemented",
+    "binary": "usr/bin/termux-clipboard-set",
+    "package": "trux-core",
+    "category": "android-bridge"
+  },
+  "termux-battery-status": {
+    "status": "implemented",
+    "binary": "usr/bin/termux-battery-status",
+    "package": "trux-core",
+    "category": "android-bridge"
+  },
+  "termux-wifi-connectioninfo": {
+    "status": "implemented",
+    "binary": "usr/bin/termux-wifi-connectioninfo",
+    "package": "trux-core",
+    "category": "android-bridge"
+  },
+  "termux-setup-storage": {
+    "status": "implemented",
+    "binary": "usr/bin/termux-setup-storage",
+    "package": "trux-core",
+    "category": "android-bridge"
+  }
+}

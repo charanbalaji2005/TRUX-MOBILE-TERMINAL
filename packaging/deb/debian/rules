@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+%:
+	dh $@
+
+override_dh_auto_build:
+	$(MAKE) all
+
+override_dh_auto_install:
+	install -d $(CURDIR)/debian/meridian-terminal/usr/bin
+	install -d $(CURDIR)/debian/meridian-terminal/usr/share/applications
+	install -m 755 build/meridian-shell $(CURDIR)/debian/meridian-terminal/usr/bin/meridian-shell
+	install -m 755 build/meridian $(CURDIR)/debian/meridian-terminal/usr/bin/meridian
+	install -m 644 meridian.desktop $(CURDIR)/debian/meridian-terminal/usr/share/applications/meridian.desktop

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.meridian_terminal.MeridianTerminal</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Meridian Terminal</name>
+  <summary>Independently engineered Linux terminal emulator with built-in shell and local AI</summary>
+  
+  <description>
+    <p>
+      Meridian Terminal is an independently engineered Linux terminal emulator written in modern C++20,
+      featuring a robust PTY allocation layer, a high-performance ANSI/VT screen buffer engine,
+      an optional standalone Meridian Shell with full POSIX job control, and an offline local-only
+      Meridian AI assistant.
+    </p>
+    <p>Features include:</p>
+    <ul>
+      <li>High performance VT100/VT220/ANSI terminal state-machine parser with 24-bit TrueColor support</li>
+      <li>Full POSIX job control (process groups, foreground handoff, background jobs, fg/bg/jobs builtins)</li>
+      <li>Built-in local AI layer for real-time typo detection across $PATH, command risk classification, and secret redaction</li>
+      <li>Privacy-first offline execution with zero telemetry or forced remote network requests</li>
+      <li>Rich configuration system with XDG-compliant path management and configurable keybindings</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">org.meridian_terminal.MeridianTerminal.desktop</launchable>
+
+  <url type="homepage">https://github.com/meridian-terminal/meridian-terminal</url>
+  <url type="bugtracker">https://github.com/meridian-terminal/meridian-terminal/issues</url>
+  <url type="vcs-browser">https://github.com/meridian-terminal/meridian-terminal</url>
+
+  <provides>
+    <binary>meridian</binary>
+    <binary>meridian-shell</binary>
+    <binary>meridian_demo</binary>
+  </provides>
+
+  <releases>
+    <release version="0.1.0" date="2026-08-25">
+      <description>
+        <p>Initial release of Meridian Terminal core, Meridian Shell, and local Meridian AI engine.</p>
+      </description>
+    </release>
+  </releases>
+
+  <content_rating type="oars-1.1"/>
+</component>
+

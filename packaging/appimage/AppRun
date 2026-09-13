@@ -1,0 +1,13 @@
+#!/bin/sh
+# Meridian Terminal AppImage AppRun entrypoint
+HERE="$(dirname "$(readlink -f "${0}")")"
+export PATH="${HERE}/usr/bin:${PATH}"
+export LD_LIBRARY_PATH="${HERE}/usr/lib:${HERE}/usr/lib64:${LD_LIBRARY_PATH}"
+export MERIDIAN_RESOURCES="${HERE}/usr/share/meridian"
+
+if [ -n "$1" ]; then
+    exec "${HERE}/usr/bin/meridian" "$@"
+else
+    exec "${HERE}/usr/bin/meridian-shell"
+fi
+

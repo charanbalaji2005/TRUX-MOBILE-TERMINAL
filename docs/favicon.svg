@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <circle cx="50" cy="50" r="46" fill="#09090b" stroke="#00A8B5" stroke-width="5" />
+  <path
+    d="M 28 68 L 28 34 L 50 56 L 72 34 L 72 68"
+    fill="none"
+    stroke="#00A8B5"
+    stroke-width="7"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M 20 54 Q 50 20 80 54"
+    fill="none"
+    stroke="#00A8B5"
+    stroke-width="3.5"
+    stroke-dasharray="4 4"
+    opacity="0.85"
+  />
+</svg>

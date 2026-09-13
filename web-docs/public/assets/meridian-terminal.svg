@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="100%" height="100%">
+  <g fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <!-- The Shell Prompt -->
+    <polyline points="44,72 108,128 44,184" />
+    <!-- The Meridian Arc (Globe contour) -->
+    <path d="M 84 24 A 64 104 0 0 1 84 232" />
+    <!-- The Terminal Cursor -->
+    <line x1="172" y1="184" x2="212" y2="184" />
+  </g>
+</svg>

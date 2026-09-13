@@ -1,0 +1,43 @@
+name: meridian-terminal
+base: core24
+version: '0.1.0'
+summary: Independently engineered Linux terminal emulator with built-in shell and local AI
+description: |
+  Meridian Terminal is an independently engineered Linux terminal emulator (C++20),
+  featuring an ANSI/VT screen engine, an optional standalone Meridian Shell with
+  full POSIX job control, and an offline local-only Meridian AI assistant.
+
+grade: stable
+confinement: classic
+
+apps:
+  meridian-terminal:
+    command: usr/bin/meridian-shell
+    plugs:
+      - home
+      - network
+      - removable-media
+  meridian:
+    command: usr/bin/meridian
+    plugs:
+      - home
+  meridian-shell:
+    command: usr/bin/meridian-shell
+    plugs:
+      - home
+      - network
+
+parts:
+  meridian-terminal:
+    plugin: make
+    source: .
+    build-packages:
+      - g++
+      - make
+      - libc6-dev
+    make-parameters:
+      - PREFIX=/usr
+    override-build: |
+      make all
+      make install DESTDIR=$CRAFT_PART_INSTALL PREFIX=/usr
+

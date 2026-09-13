@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#15192e"/>
+      <stop offset="45%" stop-color="#0e1224"/>
+      <stop offset="100%" stop-color="#070914"/>
+    </linearGradient>
+
+    <!-- Border Glow Gradient -->
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.45"/>
+      <stop offset="50%" stop-color="#818cf8" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#c084fc" stop-opacity="0.4"/>
+    </linearGradient>
+
+    <!-- Chevron Gradient: Cyan -> Electric Blue -> Violet -->
+    <linearGradient id="chevronGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="40%" stop-color="#60a5fa"/>
+      <stop offset="75%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+
+    <!-- Cursor Block Gradient: Mint -> Cyan -->
+    <linearGradient id="cursorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+
+    <!-- Neon Glow Filter -->
+    <filter id="neonGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Inner Ambient Glass Glow -->
+    <radialGradient id="innerGlow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Outer App Squircle Canvas -->
+  <rect x="32" y="32" width="448" height="448" rx="108" ry="108"
+        fill="url(#bgGrad)"
+        stroke="url(#borderGrad)"
+        stroke-width="5"/>
+
+  <!-- Inner Ambient Radial Glow -->
+  <rect x="34" y="34" width="444" height="444" rx="106" ry="106"
+        fill="url(#innerGlow)"/>
+
+  <!-- Top-left Window Traffic Light Dots (Mac-style) -->
+  <circle cx="88" cy="88" r="8" fill="#ef4444" opacity="0.85"/>
+  <circle cx="116" cy="88" r="8" fill="#f59e0b" opacity="0.85"/>
+  <circle cx="144" cy="88" r="8" fill="#10b981" opacity="0.85"/>
+
+  <!-- Subtle Top-right Meridian Sparkle Accent -->
+  <g transform="translate(412, 88)" opacity="0.65">
+    <circle cx="0" cy="0" r="3.5" fill="#38bdf8"/>
+    <path d="M 0 -11 L 2 -2.5 L 10 0 L 2 2.5 L 0 11 L -2 2.5 L -10 0 L -2 -2.5 Z" fill="#38bdf8"/>
+  </g>
+
+  <!-- Main Terminal Prompt Chevron ( > ) -->
+  <path d="M 152 166 L 278 256 L 152 346"
+        fill="none"
+        stroke="url(#chevronGrad)"
+        stroke-width="52"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        filter="url(#neonGlow)"/>
+
+  <!-- Block Cursor Underscore ( _ ) -->
+  <rect x="306" y="318" width="76" height="34" rx="10" ry="10"
+        fill="url(#cursorGrad)"
+        filter="url(#neonGlow)"/>
+</svg>

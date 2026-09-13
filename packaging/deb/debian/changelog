@@ -1,0 +1,18 @@
+meridian-terminal (2.5.0-1) unstable; urgency=medium
+
+  * Release Meridian Terminal 2.5.0.
+  * Universal prebuilt multi-distro installer for Ubuntu/Debian/Fedora/Arch/WSL.
+  * VS Code auto-detection and default terminal integration.
+  * Anonymous usage statistics and opt-in privacy telemetry.
+  * Built-in GitHub authentication manager.
+
+ -- Charan Balaji <charanbalaji@meridian.dev>  Sat, 29 Aug 2026 12:00:00 +0000
+
+meridian-terminal (0.1.0-1) unstable; urgency=medium
+
+  * Initial release of Meridian Terminal (C++20).
+  * Includes Meridian Shell with POSIX job control.
+  * Includes local-only Meridian AI engine.
+
+ -- Charan Balaji <charan@example.com>  Tue, 25 Aug 2026 00:00:00 +0000
+

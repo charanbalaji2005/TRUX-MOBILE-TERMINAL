@@ -1,0 +1,9 @@
+build/meridian usr/bin
+build/meridian-shell usr/bin
+build/meridian_demo usr/bin
+packaging/desktop/org.meridian_terminal.MeridianTerminal.desktop usr/share/applications
+resources/icons/meridian-terminal.svg usr/share/icons/hicolor/scalable/apps
+packaging/desktop/org.meridian_terminal.MeridianTerminal.metainfo.xml usr/share/metainfo
+README.md usr/share/doc/meridian-terminal
+LICENSE usr/share/doc/meridian-terminal
+

@@ -1,0 +1,13 @@
+---
+Language: Cpp
+BasedOnStyle: Google
+Standard: c++20
+IndentWidth: 4
+ColumnLimit: 110
+AccessModifierOffset: -2
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+BreakBeforeBraces: Attach
+NamespaceIndentation: None
+PointerAlignment: Left
+SortIncludes: false

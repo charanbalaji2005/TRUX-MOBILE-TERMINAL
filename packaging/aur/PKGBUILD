@@ -1,0 +1,32 @@
+# Maintainer: Charan Balaji <charan@example.com>
+pkgname=meridian-terminal
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Independently engineered Linux terminal emulator with built-in shell and local AI"
+arch=('x86_64' 'aarch64')
+url="https://github.com/meridian-terminal/meridian-terminal"
+license=('GPL3')
+depends=('glibc')
+makedepends=('gcc' 'make')
+optdepends=()
+provides=('meridian' 'meridian-shell')
+conflicts=('meridian-terminal-git')
+source=("https://github.com/meridian-terminal/meridian-terminal/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+    cd "${pkgname}-${pkgver}"
+    make all
+}
+
+check() {
+    cd "${pkgname}-${pkgver}"
+    ./build/meridian_tests
+    ./tests/manual_core_test.sh
+}
+
+package() {
+    cd "${pkgname}-${pkgver}"
+    make install DESTDIR="${pkgdir}" PREFIX="/usr"
+}
+

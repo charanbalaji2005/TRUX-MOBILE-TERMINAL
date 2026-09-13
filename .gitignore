@@ -1,0 +1,41 @@
+# Built application files
+*.apk
+*.aar
+*.aab
+
+# Gradle files
+.gradle/
+build/
+android/.gradle/
+android/build/
+android/app/build/
+android/app/.cxx/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+.navigation/
+captures/
+
+# CMake / C++ build output
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+*.o
+*.obj
+*.so
+*.dll
+*.dylib
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Temp files
+*.log
+*.tmp
+*.bak

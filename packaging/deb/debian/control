@@ -1,0 +1,15 @@
+Source: meridian-terminal
+Section: utils
+Priority: optional
+Maintainer: Charan Balaji <charanbalaji@meridian.dev>
+Build-Depends: debhelper-compat (= 13), g++ (>= 4:11), make, cmake (>= 3.20)
+Standards-Version: 4.6.2
+Homepage: https://github.com/charanbalaji2005/Meridian-Shell
+
+Package: meridian-terminal
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Modern Linux Terminal & Unified Developer Environment
+ Meridian Terminal is a fast Linux terminal emulator, developer environment,
+ and AI agent platform with native TrueColor graphics, live Git intelligence,
+ multi-pane multiplexing, and in-terminal command preview.

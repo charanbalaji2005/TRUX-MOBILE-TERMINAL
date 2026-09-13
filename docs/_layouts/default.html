@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} — Meridian Shell Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/meridian-shell-logo.svg' | relative_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/docs.css' | relative_url }}">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="meridian-header">
+    <div class="header-left">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+
+      <a href="{{ '/' | relative_url }}" class="brand-logo" title="Meridian Shell Documentation">
+        <div class="logo-badge">
+          <svg viewBox="0 0 100 100" width="28" height="28" class="logo-svg">
+            <circle cx="50" cy="50" r="44" fill="none" stroke="#00A8B5" stroke-width="6" />
+            <path d="M 28 68 L 28 34 L 50 56 L 72 34 L 72 68" fill="none" stroke="#00A8B5" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M 20 54 Q 50 20 80 54" fill="none" stroke="#00A8B5" stroke-width="3.5" stroke-dasharray="4 4" opacity="0.85" />
+          </svg>
+        </div>
+        <div class="brand-text-block">
+          <span class="brand-name">MERIDIAN SHELL</span>
+          <span class="brand-tag">DOCS</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="header-right">
+      <nav class="header-nav-links">
+        <a href="{{ '/reference/cli.html' | relative_url }}" class="header-nav-link">API Docs</a>
+        <a href="{{ '/project/changelog.html' | relative_url }}" class="header-nav-link">Release Notes</a>
+        <a href="{{ '/getting-started/quickstart.html' | relative_url }}" class="header-nav-link">Getting Started</a>
+      </nav>
+
+      <div class="header-lang-wrapper">
+        <button class="header-lang-btn" aria-label="Select Language">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>English</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+
+      <button class="header-search-btn" id="searchTrigger" aria-label="Search documentation">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span class="search-placeholder">Search</span>
+        <kbd class="search-kbd">Ctrl K</kbd>
+      </button>
+
+      <button id="themeToggleBtn" class="header-theme-btn" title="Toggle theme" aria-label="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="theme-moon"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="claude-layout-container">
+    <!-- Mobile Backdrop -->
+    <div class="claude-backdrop" id="mobileBackdrop"></div>
+
+    <!-- Left Sidebar -->
+    <aside class="meridian-sidebar" id="meridianSidebar">
+      <nav class="sidebar-scroll-nav">
+        <!-- MERIDIAN SHELL -->
+        <div class="sidebar-group">
+          <button class="sidebar-group-header" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="group-title">MERIDIAN SHELL</span>
+            <span class="group-chevron">▾</span>
+          </button>
+          <ul class="sidebar-items-list">
+            <li><a href="{{ '/getting-started/introduction.html' | relative_url }}" class="sidebar-link {% if page.url contains 'introduction' %}active{% endif %}"><span class="link-text">Introduction</span></a></li>
+            <li><a href="{{ '/getting-started/installation.html' | relative_url }}" class="sidebar-link {% if page.url contains 'installation' %}active{% endif %}"><span class="link-text">Installation</span></a></li>
+            <li><a href="{{ '/getting-started/quickstart.html' | relative_url }}" class="sidebar-link {% if page.url contains 'quickstart' %}active{% endif %}"><span class="link-text">Quick Start</span></a></li>
+            <li><a href="{{ '/getting-started/configuration.html' | relative_url }}" class="sidebar-link {% if page.url contains 'configuration' %}active{% endif %}"><span class="link-text">Configuration</span></a></li>
+          </ul>
+        </div>
+
+        <!-- TERMINAL -->
+        <div class="sidebar-group">
+          <button class="sidebar-group-header" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="group-title">TERMINAL</span>
+            <span class="group-chevron">▾</span>
+          </button>
+          <ul class="sidebar-items-list">
+            <li><a href="{{ '/terminal/terminal-emulation.html' | relative_url }}" class="sidebar-link {% if page.url contains 'terminal-emulation' %}active{% endif %}"><span class="link-text">Terminal Emulation</span></a></li>
+            <li><a href="{{ '/terminal/shell.html' | relative_url }}" class="sidebar-link {% if page.url contains 'shell' %}active{% endif %}"><span class="link-text">Shell</span></a></li>
+            <li><a href="{{ '/terminal/pty.html' | relative_url }}" class="sidebar-link {% if page.url contains 'pty' %}active{% endif %}"><span class="link-text">PTY</span></a></li>
+            <li><a href="{{ '/terminal/commands.html' | relative_url }}" class="sidebar-link {% if page.url contains 'commands' %}active{% endif %}"><span class="link-text">Commands</span></a></li>
+            <li><a href="{{ '/terminal/ssh.html' | relative_url }}" class="sidebar-link {% if page.url contains 'ssh' %}active{% endif %}"><span class="link-text">SSH</span></a></li>
+            <li><a href="{{ '/terminal/keybindings.html' | relative_url }}" class="sidebar-link {% if page.url contains 'keybindings' %}active{% endif %}"><span class="link-text">Keyboard Shortcuts</span></a></li>
+            <li><a href="{{ '/terminal/clipboard.html' | relative_url }}" class="sidebar-link {% if page.url contains 'clipboard' %}active{% endif %}"><span class="link-text">Clipboard</span></a></li>
+            <li><a href="{{ '/terminal/scrollback.html' | relative_url }}" class="sidebar-link {% if page.url contains 'scrollback' %}active{% endif %}"><span class="link-text">Scrollback</span></a></li>
+          </ul>
+        </div>
+
+        <!-- GRAPHICS -->
+        <div class="sidebar-group">
+          <button class="sidebar-group-header" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="group-title">GRAPHICS</span>
+            <span class="group-chevron">▾</span>
+          </button>
+          <ul class="sidebar-items-list">
+            <li><a href="{{ '/graphics/gpu-renderer.html' | relative_url }}" class="sidebar-link {% if page.url contains 'gpu-renderer' %}active{% endif %}"><span class="link-text">GPU Renderer</span></a></li>
+            <li><a href="{{ '/graphics/inline-images.html' | relative_url }}" class="sidebar-link {% if page.url contains 'inline-images' %}active{% endif %}"><span class="link-text">Inline Images</span></a></li>
+            <li><a href="{{ '/graphics/image-formats.html' | relative_url }}" class="sidebar-link {% if page.url contains 'image-formats' %}active{% endif %}"><span class="link-text">Image Formats</span></a></li>
+            <li><a href="{{ '/graphics/gif.html' | relative_url }}" class="sidebar-link {% if page.url contains 'gif' %}active{% endif %}"><span class="link-text">GIF</span></a></li>
+            <li><a href="{{ '/graphics/kitty-graphics.html' | relative_url }}" class="sidebar-link {% if page.url contains 'kitty-graphics' %}active{% endif %}"><span class="link-text">Kitty Graphics</span></a></li>
+            <li><a href="{{ '/graphics/sixel.html' | relative_url }}" class="sidebar-link {% if page.url contains 'sixel' %}active{% endif %}"><span class="link-text">Sixel</span></a></li>
+            <li><a href="{{ '/graphics/image-rendering.html' | relative_url }}" class="sidebar-link {% if page.url contains 'image-rendering' %}active{% endif %}"><span class="link-text">Image Rendering</span></a></li>
+          </ul>
+        </div>
+
+        <!-- INTERFACE -->
+        <div class="sidebar-group">
+          <button class="sidebar-group-header" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="group-title">INTERFACE</span>
+            <span class="group-chevron">▾</span>
+          </button>
+          <ul class="sidebar-items-list">
+            <li><a href="{{ '/interface/gui.html' | relative_url }}" class="sidebar-link {% if page.url contains 'gui' %}active{% endif %}"><span class="link-text">GUI</span></a></li>
+            <li><a href="{{ '/interface/windows.html' | relative_url }}" class="sidebar-link {% if page.url contains 'windows' %}active{% endif %}"><span class="link-text">Windows</span></a></li>
+            <li><a href="{{ '/interface/tabs.html' | relative_url }}" class="sidebar-link {% if page.url contains 'tabs' %}active{% endif %}"><span class="link-text">Tabs</span></a></li>
+            <li><a href="{{ '/interface/panes.html' | relative_url }}" class="sidebar-link {% if page.url contains 'panes' %}active{% endif %}"><span class="link-text">Panes</span></a></li>
+            <li><a href="{{ '/interface/themes.html' | relative_url }}" class="sidebar-link {% if page.url contains 'themes' %}active{% endif %}"><span class="link-text">Themes</span></a></li>
+            <li><a href="{{ '/interface/powerline.html' | relative_url }}" class="sidebar-link {% if page.url contains 'powerline' %}active{% endif %}"><span class="link-text">Powerline</span></a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="claude-main-area">
+      <div class="claude-article-wrapper">
+        <nav class="claude-breadcrumbs">
+          <a href="{{ '/' | relative_url }}" class="breadcrumb-link">All Collections</a>
+          <span class="breadcrumb-separator">›</span>
+          <a href="{{ '/' | relative_url }}" class="breadcrumb-link">Meridian Shell</a>
+          <span class="breadcrumb-separator">›</span>
+          <span class="breadcrumb-link">{{ page.category | default: "Documentation" }}</span>
+          <span class="breadcrumb-separator">›</span>
+          <span class="breadcrumb-current">{{ page.title }}</span>
+        </nav>
+
+        <article class="claude-article">
+          <header class="article-title-header">
+            <div class="title-row">
+              <h1 class="article-serif-title">{{ page.title }}</h1>
+            </div>
+            <p class="article-publish-date">August 25, 2026</p>
+          </header>
+
+          <div class="doc-body-content" id="docBodyContent">
+            {{ content }}
+          </div>
+        </article>
+      </div>
+
+      <!-- Right Sidebar (Contents) -->
+      <aside class="claude-toc" id="meridianToc">
+        <div class="toc-sticky-container">
+          <h4 class="toc-section-heading">ON THIS PAGE</h4>
+          <ul class="toc-items-list" id="tocList"></ul>
+
+          <div class="was-this-helpful-card">
+            <div class="helpful-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span>Was this helpful?</span>
+            </div>
+            <div class="helpful-actions">
+              <button class="feedback-btn" aria-label="Yes">👍</button>
+              <button class="feedback-btn" aria-label="No">👎</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <footer class="claude-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-title">Meridian Shell</span>
+      </div>
+      <div class="footer-links">
+        <a href="{{ '/' | relative_url }}" class="footer-link">Documentation</a>
+        <a href="https://github.com/charanbalaji2005/Meridian-Shell" target="_blank" class="footer-link">GitHub</a>
+        <a href="{{ '/project/changelog.html' | relative_url }}" class="footer-link">Release Notes</a>
+        <a href="{{ '/project/contributing.html' | relative_url }}" class="footer-link">Contributing</a>
+        <a href="{{ '/project/license.html' | relative_url }}" class="footer-link">License</a>
+      </div>
+      <div class="footer-copy">
+        GNU GPL v3 or later
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ '/assets/docs.js' | relative_url }}"></script>
+</body>
+</html>

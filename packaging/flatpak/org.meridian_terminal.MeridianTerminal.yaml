@@ -1,0 +1,26 @@
+app-id: org.meridian_terminal.MeridianTerminal
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+command: meridian-shell
+
+finish-args:
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+  - --filesystem=host
+  - --talk-name=org.freedesktop.Flatpak
+
+modules:
+  - name: meridian-terminal
+    buildsystem: simple
+    build-commands:
+      - make all
+      - make install PREFIX=/app
+    sources:
+      - type: git
+        url: https://github.com/meridian-terminal/meridian-terminal.git
+        tag: v0.1.0
+        commit: HEAD
+

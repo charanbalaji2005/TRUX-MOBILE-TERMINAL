@@ -1,0 +1,26 @@
+[Desktop Entry]
+Version=1.5
+Type=Application
+Name=Meridian Terminal
+GenericName=Terminal Emulator & AI Dev Platform
+Comment=Independently engineered Linux terminal emulator with built-in Meridian Shell and local AI assistant
+Exec=meridian
+Icon=meridian-terminal
+Terminal=true
+Categories=System;TerminalEmulator;Development;
+Keywords=terminal;shell;console;command;cli;pty;ai;meridian;
+StartupNotify=true
+StartupWMClass=meridian-terminal
+Actions=NewWindow;MeridianGUI;MeridianAI;
+
+[Desktop Action NewWindow]
+Name=New Window
+Exec=meridian
+
+[Desktop Action MeridianGUI]
+Name=Meridian Workstation Dashboard
+Exec=meridian gui
+
+[Desktop Action MeridianAI]
+Name=Meridian AI Status
+Exec=meridian ai status

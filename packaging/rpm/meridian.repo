@@ -1,0 +1,6 @@
+[meridian]
+name=Meridian Terminal Repository
+baseurl=https://raw.githubusercontent.com/charanbalaji2005/Meridian-Shell/main/dist/
+enabled=1
+gpgcheck=0
+type=rpm

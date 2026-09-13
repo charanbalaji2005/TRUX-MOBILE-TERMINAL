@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Meridian Terminal
+Comment=Modern Linux Terminal & Unified Developer Environment
+Exec=meridian
+Icon=utilities-terminal
+Terminal=true
+Type=Application
+Categories=System;TerminalEmulator;Development;
+Keywords=shell;prompt;terminal;command;pty;meridian;
+StartupNotify=true
+
