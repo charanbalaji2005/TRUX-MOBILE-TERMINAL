@@ -45,8 +45,8 @@ class SessionManager private constructor(
 
         val dm = bootstrap.context.resources.displayMetrics
         val isPortrait = dm.widthPixels < dm.heightPixels
-        val defaultCols = if (cols > 0) cols else if (isPortrait) 44 else 80
-        val defaultRows = if (rows > 0) rows else if (isPortrait) 28 else 24
+        val defaultCols = if (cols > 0) cols else if (lastKnownCols > 0) lastKnownCols else if (isPortrait) 36 else 80
+        val defaultRows = if (rows > 0) rows else if (lastKnownRows > 0) lastKnownRows else if (isPortrait) 28 else 24
 
         val resolvedShell = bootstrap.resolveShell(shell)
         val resolvedCwd = cwd ?: bootstrap.home.absolutePath
@@ -72,6 +72,14 @@ class SessionManager private constructor(
             createdAt = now
         )
         session.resize(defaultCols, defaultRows)
+        if (com.meridian.shell.welcome.WelcomeBanner.isWelcomeEnabled(bootstrap.context)) {
+            val banner = com.meridian.shell.welcome.WelcomeBanner.generateBanner(
+                cols = defaultCols,
+                rows = defaultRows,
+                color = true
+            )
+            session.feedOutput(banner)
+        }
         _sessions.add(session)
         if (activeSession == null) activeSession = session
 
@@ -195,6 +203,8 @@ class SessionManager private constructor(
     }
 
     fun updateSessionSize(session: TerminalSession, cols: Int, rows: Int) {
+        if (cols > 0) lastKnownCols = cols
+        if (rows > 0) lastKnownRows = rows
         scope.launch { db.sessionDao().updateSize(session.id, cols, rows) }
     }
 
@@ -228,10 +238,13 @@ class SessionManager private constructor(
         val resolvedShell = bootstrap.resolveShell(entity.shell)
         val env = bootstrap.buildEnvironment()
 
+        val effCols = if (lastKnownCols > 0) lastKnownCols else entity.columns
+        val effRows = if (lastKnownRows > 0) lastKnownRows else entity.rows
+
         val handle = PtyBridge.nativeCreateSession(
             resolvedShell, arrayOf("-l"), env,
             entity.workingDirectory,
-            entity.columns, entity.rows, 10_000
+            effCols, effRows, 10_000
         )
         if (handle == 0L) throw SessionLimitReached()
 
@@ -243,7 +256,15 @@ class SessionManager private constructor(
             handle = handle,
             createdAt = entity.createdAt
         )
-        session.resize(entity.columns, entity.rows)
+        session.resize(effCols, effRows)
+        if (com.meridian.shell.welcome.WelcomeBanner.isWelcomeEnabled(bootstrap.context)) {
+            val banner = com.meridian.shell.welcome.WelcomeBanner.generateBanner(
+                cols = effCols,
+                rows = effRows,
+                color = true
+            )
+            session.feedOutput(banner)
+        }
         _sessions.add(session)
         if (activeSession == null) activeSession = session
 
@@ -258,6 +279,12 @@ class SessionManager private constructor(
     companion object {
         @Volatile
         private var instance: SessionManager? = null
+
+        @Volatile
+        var lastKnownCols: Int = 0
+
+        @Volatile
+        var lastKnownRows: Int = 0
 
         fun get(context: Context): SessionManager =
             instance ?: synchronized(this) {

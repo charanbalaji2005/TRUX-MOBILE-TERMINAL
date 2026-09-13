@@ -289,10 +289,6 @@ class Bootstrap(val context: Context) {
             alias sudo='sudo'
             alias export-pdf='trux export pdf'
             alias export-session='trux export'
-
-            if [ -x "${prefix.absolutePath}/bin/trux-welcome" ]; then
-                "${prefix.absolutePath}/bin/trux-welcome" --auto
-            fi
             """.trimIndent() + "\n"
         )
         File(etcDir, "profile").writeText(profile.readText())
@@ -760,15 +756,23 @@ class Bootstrap(val context: Context) {
                     ;;
             esac
 
-            # Detect terminal width
+            # Detect terminal dimensions
             COLS=""
+            ROWS=""
             if [ -t 1 ]; then
-                COLS=${'$'}(stty size 2>/dev/null | awk '{print ${'$'}2}')
+                DIM_STTY="${'$'}(stty size 2>/dev/null)"
+                ROWS="${'$'}(echo "${'$'}DIM_STTY" | awk '{print ${'$'}1}')"
+                COLS="${'$'}(echo "${'$'}DIM_STTY" | awk '{print ${'$'}2}')"
                 [ -z "${'$'}COLS" ] && COLS=${'$'}(tput cols 2>/dev/null)
+                [ -z "${'$'}ROWS" ] && ROWS=${'$'}(tput lines 2>/dev/null)
             fi
-            [ -z "${'$'}COLS" ] && COLS=${'$'}{COLUMNS:-80}
+            [ -z "${'$'}COLS" ] && COLS=${'$'}{COLUMNS:-36}
+            [ -z "${'$'}ROWS" ] && ROWS=${'$'}{LINES:-24}
             case "${'$'}COLS" in
-                ''|*[!0-9]*) COLS=80 ;;
+                ''|*[!0-9]*) COLS=36 ;;
+            esac
+            case "${'$'}ROWS" in
+                ''|*[!0-9]*) ROWS=24 ;;
             esac
 
             # Monochrome / Color Detection
@@ -811,86 +815,41 @@ class Bootstrap(val context: Context) {
 
             echo ""
 
-            # Header
-            if [ "${'$'}COLS" -ge 58 ]; then
+            L1="█████   ████    █   █   █   █"
+            L2="  █     █   █   █   █    █ █ "
+            L3="  █     ████    █   █     █  "
+            L4="  █     █  █    █   █    █ █ "
+            L5="  █     █   █    ███    █   █"
+
+            # Header and Content
+            if [ "${'$'}ROWS" -le 18 ] || [ "${'$'}COLS" -lt 32 ]; then
+                # Compressed layout (keyboard opened or small viewport)
+                center_line "${'$'}{ACC}${'$'}{BOLD}${'$'}{L1}${'$'}{RST}" 29
+                center_line "${'$'}{ACC}${'$'}{BOLD}${'$'}{L2}${'$'}{RST}" 29
+                center_line "${'$'}{SLV}${'$'}{BOLD}${'$'}{L3}${'$'}{RST}" 29
+                center_line "${'$'}{SLV}${'$'}{BOLD}${'$'}{L4}${'$'}{RST}" 29
+                center_line "${'$'}{GRY}${'$'}{BOLD}${'$'}{L5}${'$'}{RST}" 29
+                center_line "${'$'}{SLV}${'$'}{BOLD}ANDROID TERMINAL • BEYOND${'$'}{RST}" 25
+                center_line "${'$'}{WHT}Type 'help' | 'trux' | 'pkg'${'$'}{RST}" 28
+            else
+                # Standard layout (keyboard closed)
                 center_line "${'$'}{DIM}${'$'}{DRK}WELCOME TO${'$'}{RST}" 10
-                center_line "${'$'}{ACC}${'$'}{BOLD}████████╗██████╗ ██╗   ██╗██╗  ██╗${'$'}{RST}" 34
-                center_line "${'$'}{ACC}${'$'}{BOLD}╚══██╔══╝██╔══██╗██║   ██║╚██╗██╔╝${'$'}{RST}" 34
-                center_line "${'$'}{SLV}${'$'}{BOLD}   ██║   ██████╔╝██║   ██║ ╚███╔╝ ${'$'}{RST}" 34
-                center_line "${'$'}{SLV}${'$'}{BOLD}   ██║   ██╔══██╗██║   ██║ ██╔██╗ ${'$'}{RST}" 34
-                center_line "${'$'}{GRY}${'$'}{BOLD}   ██║   ██║  ██║╚██████╔╝██╔╝ ██╗${'$'}{RST}" 34
-                center_line "${'$'}{DRK}   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝${'$'}{RST}" 34
+                center_line "${'$'}{ACC}${'$'}{BOLD}${'$'}{L1}${'$'}{RST}" 29
+                center_line "${'$'}{ACC}${'$'}{BOLD}${'$'}{L2}${'$'}{RST}" 29
+                center_line "${'$'}{SLV}${'$'}{BOLD}${'$'}{L3}${'$'}{RST}" 29
+                center_line "${'$'}{SLV}${'$'}{BOLD}${'$'}{L4}${'$'}{RST}" 29
+                center_line "${'$'}{GRY}${'$'}{BOLD}${'$'}{L5}${'$'}{RST}" 29
                 center_line "${'$'}{SLV}${'$'}{BOLD}A N D R O I D   T E R M I N A L${'$'}{RST}" 31
+                center_line "${'$'}{GRY}${'$'}{DIM}BUILD  ›  EXPLORE  ›  BEYOND${'$'}{RST}" 28
                 echo ""
-                center_line "${'$'}{GRY}${'$'}{DIM}${'$'}{BOLD}BUILD  ›  EXPLORE  ›  BEYOND${'$'}{RST}" 26
+                center_line "${'$'}{SLV} • Linux Env     • Secure Lock${'$'}{RST}" 30
+                center_line "${'$'}{SLV} • Packages      • File Viewer${'$'}{RST}" 30
+                center_line "${'$'}{SLV} • AI Assistant  • High Perf  ${'$'}{RST}" 30
                 echo ""
-            elif [ "${'$'}COLS" -ge 40 ]; then
-                center_line "${'$'}{DIM}${'$'}{DRK}WELCOME TO${'$'}{RST}" 10
-                center_line "${'$'}{ACC}${'$'}{BOLD}████████╗██████╗ ██╗   ██╗██╗  ██╗${'$'}{RST}" 34
-                center_line "${'$'}{ACC}${'$'}{BOLD}╚══██╔══╝██╔══██╗██║   ██║╚██╗██╔╝${'$'}{RST}" 34
-                center_line "${'$'}{SLV}${'$'}{BOLD}   ██║   ██████╔╝██║   ██║ ╚███╔╝ ${'$'}{RST}" 34
-                center_line "${'$'}{SLV}${'$'}{BOLD}   ██║   ██╔══██╗██║   ██║ ██╔██╗ ${'$'}{RST}" 34
-                center_line "${'$'}{GRY}${'$'}{BOLD}   ██║   ██║  ██║╚██████╔╝██╔╝ ██╗${'$'}{RST}" 34
-                center_line "${'$'}{DRK}   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝${'$'}{RST}" 34
-                center_line "${'$'}{SLV}${'$'}{BOLD}ANDROID TERMINAL${'$'}{RST}" 16
-                center_line "${'$'}{GRY}${'$'}{DIM}BUILD › EXPLORE › BEYOND${'$'}{RST}" 24
-                echo ""
-            else
-                center_line "${'$'}{DIM}${'$'}{DRK}WELCOME TO${'$'}{RST}" 10
-                center_line "${'$'}{ACC}${'$'}{BOLD}T R U X${'$'}{RST}" 7
-                center_line "${'$'}{SLV}${'$'}{BOLD}ANDROID TERMINAL${'$'}{RST}" 16
-                center_line "${'$'}{GRY}${'$'}{DIM}BUILD › EXPLORE › BEYOND${'$'}{RST}" 24
-                echo ""
-            fi
-
-            # Features Section
-            if [ "${'$'}COLS" -ge 76 ]; then
-                center_line "${'$'}{DRK}┌─────────────────────────┬─────────────────────────┬─────────────────────────┐${'$'}{RST}" 75
-                center_line "${'$'}{DRK}│${'$'}{SLV} >_ Powerful Linux Env   ${'$'}{DRK}│${'$'}{SLV} 📦 Full Package Ecosys  ${'$'}{DRK}│${'$'}{SLV} 🤖 Integrated AI Assist ${'$'}{DRK}│${'$'}{RST}" 75
-                center_line "${'$'}{DRK}├─────────────────────────┼─────────────────────────┼─────────────────────────┤${'$'}{RST}" 75
-                center_line "${'$'}{DRK}│${'$'}{SLV} 🔒 Secure App Lock      ${'$'}{DRK}│${'$'}{SLV} 🖼️ Universal Viewer     ${'$'}{DRK}│${'$'}{SLV} ⚡ Lightweight High Perf${'$'}{DRK}│${'$'}{RST}" 75
-                center_line "${'$'}{DRK}└─────────────────────────┴─────────────────────────┴─────────────────────────┘${'$'}{RST}" 75
-                echo ""
-            elif [ "${'$'}COLS" -ge 54 ]; then
-                center_line "${'$'}{DRK}┌───────────────────────┬───────────────────────┐${'$'}{RST}" 49
-                center_line "${'$'}{DRK}│${'$'}{SLV} >_ Linux Environment  ${'$'}{DRK}│${'$'}{SLV} 📦 Package Ecosystem  ${'$'}{DRK}│${'$'}{RST}" 49
-                center_line "${'$'}{DRK}├───────────────────────┼───────────────────────┤${'$'}{RST}" 49
-                center_line "${'$'}{DRK}│${'$'}{SLV} 🤖 AI Assistant       ${'$'}{DRK}│${'$'}{SLV} 🔒 Secure App Lock    ${'$'}{DRK}│${'$'}{RST}" 49
-                center_line "${'$'}{DRK}├───────────────────────┼───────────────────────┤${'$'}{RST}" 49
-                center_line "${'$'}{DRK}│${'$'}{SLV} 🖼️ Universal Viewer   ${'$'}{DRK}│${'$'}{SLV} ⚡ High Performance   ${'$'}{DRK}│${'$'}{RST}" 49
-                center_line "${'$'}{DRK}└───────────────────────┴───────────────────────┘${'$'}{RST}" 49
-                echo ""
-            elif [ "${'$'}COLS" -ge 38 ]; then
-                center_line "${'$'}{DRK}┌──────────────────────────────────┐${'$'}{RST}" 36
-                center_line "${'$'}{DRK}│${'$'}{SLV}  >_ Powerful Linux Environment   ${'$'}{DRK}│${'$'}{RST}" 36
-                center_line "${'$'}{DRK}│${'$'}{SLV}  📦 Full Package Ecosystem       ${'$'}{DRK}│${'$'}{RST}" 36
-                center_line "${'$'}{DRK}│${'$'}{SLV}  🤖 Integrated AI Assistant      ${'$'}{DRK}│${'$'}{RST}" 36
-                center_line "${'$'}{DRK}│${'$'}{SLV}  🔒 Secure App Lock              ${'$'}{DRK}│${'$'}{RST}" 36
-                center_line "${'$'}{DRK}│${'$'}{SLV}  🖼️ Universal File Viewer        ${'$'}{DRK}│${'$'}{RST}" 36
-                center_line "${'$'}{DRK}│${'$'}{SLV}  ⚡ Lightweight High Performance ${'$'}{DRK}│${'$'}{RST}" 36
-                center_line "${'$'}{DRK}└──────────────────────────────────┘${'$'}{RST}" 36
-                echo ""
-            else
-                echo " ${'$'}{SLV}• Linux Environment${'$'}{RST}"
-                echo " ${'$'}{SLV}• Full Package Ecosystem${'$'}{RST}"
-                echo " ${'$'}{SLV}• Integrated AI Assistant${'$'}{RST}"
-                echo " ${'$'}{SLV}• Secure App Lock${'$'}{RST}"
-                echo " ${'$'}{SLV}• Universal File Viewer${'$'}{RST}"
-                echo " ${'$'}{SLV}• Lightweight High Performance${'$'}{RST}"
-                echo ""
-            fi
-
-            # Command hints
-            if [ "${'$'}COLS" -ge 48 ]; then
-                echo "  ${'$'}{GRY}${'$'}{DIM}Type ${'$'}{WHT}'help'${'$'}{GRY}${'$'}{DIM}       → Show available commands${'$'}{RST}"
-                echo "  ${'$'}{GRY}${'$'}{DIM}Type ${'$'}{WHT}'trux'${'$'}{GRY}${'$'}{DIM}       → Explore TRUX tools${'$'}{RST}"
-                echo "  ${'$'}{GRY}${'$'}{DIM}Type ${'$'}{WHT}'pkg'${'$'}{GRY}${'$'}{DIM}        → Manage packages${'$'}{RST}"
-                echo "  ${'$'}{GRY}${'$'}{DIM}Type ${'$'}{WHT}'trux ai'${'$'}{GRY}${'$'}{DIM}    → Use AI assistant${'$'}{RST}"
-            else
-                echo "  ${'$'}{WHT}help${'$'}{GRY}${'$'}{DIM}     → Show commands${'$'}{RST}"
-                echo "  ${'$'}{WHT}trux${'$'}{GRY}${'$'}{DIM}     → TRUX tools${'$'}{RST}"
-                echo "  ${'$'}{WHT}pkg${'$'}{GRY}${'$'}{DIM}      → Manage packages${'$'}{RST}"
-                echo "  ${'$'}{WHT}trux ai${'$'}{GRY}${'$'}{DIM}  → AI assistant${'$'}{RST}"
+                echo " ${'$'}{GRY}${'$'}{DIM}Type ${'$'}{WHT}'help'${'$'}{GRY}${'$'}{DIM}     → Show commands${'$'}{RST}"
+                echo " ${'$'}{GRY}${'$'}{DIM}Type ${'$'}{WHT}'trux'${'$'}{GRY}${'$'}{DIM}     → Explore TRUX${'$'}{RST}"
+                echo " ${'$'}{GRY}${'$'}{DIM}Type ${'$'}{WHT}'pkg'${'$'}{GRY}${'$'}{DIM}      → Manage packages${'$'}{RST}"
+                echo " ${'$'}{GRY}${'$'}{DIM}Type ${'$'}{WHT}'trux ai'${'$'}{GRY}${'$'}{DIM}  → AI assistant${'$'}{RST}"
             fi
             echo ""
         """.trimIndent() + "\n"
@@ -3613,6 +3572,7 @@ EOF
             "LC_CTYPE"           to "UTF-8",
             "SHELL"              to resolveShell(null),
             "ENV"                to File(home, ".mkshrc").absolutePath,
+            "PS1"                to "trux@android:~$ ",
             "INPUTRC"            to File(home, ".inputrc").absolutePath,
             "USER"               to "trux",
             "LOGNAME"            to "trux",

@@ -44,6 +44,7 @@ object PtyBridge {
 
     external fun nativeDestroySession(handle: Long)
     external fun nativeWrite(handle: Long, data: ByteArray, length: Int)
+    external fun nativeFeedOutput(handle: Long, data: ByteArray, length: Int)
     external fun nativeResize(handle: Long, cols: Int, rows: Int)
     external fun nativeSignal(handle: Long, sig: Int)
     external fun nativeIsAlive(handle: Long): Boolean

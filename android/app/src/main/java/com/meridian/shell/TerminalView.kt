@@ -266,9 +266,16 @@ class TerminalView(context: Context) : View(context) {
         renderThread = thread(name = "meridian-render", isDaemon = true) {
             while (renderRunning) {
                 val s = session
-                if (s == null) { Thread.sleep(50); continue }
+                if (s == null) {
+                    try { Thread.sleep(50) } catch (_: InterruptedException) { break }
+                    continue
+                }
                 // Blocks natively until output arrives; no 60 Hz busy poll.
-                s.awaitChange(lastGeneration, 100)
+                try {
+                    s.awaitChange(lastGeneration, 100)
+                } catch (_: InterruptedException) {
+                    break
+                }
                 val gen = s.generation()
                 if (gen != lastGeneration) {
                     lastGeneration = gen

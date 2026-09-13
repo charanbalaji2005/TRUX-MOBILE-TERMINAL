@@ -161,6 +161,17 @@ void TerminalCore::write_input(const char* data, size_t len) {
     pty_.write_master(data, len);
 }
 
+void TerminalCore::feed_output(const char* data, size_t len) {
+    if (!data || len == 0) return;
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        if (parser_) {
+            parser_->feed(data, len);
+        }
+    }
+    mark_dirty();
+}
+
 void TerminalCore::resize(int cols, int rows) {
     if (cols <= 0 || rows <= 0) return;
     {

@@ -86,6 +86,33 @@ fun SettingsScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
+        Spacer(Modifier.height(16.dp))
+
+        // Welcome screen setting
+        val context = androidx.compose.ui.platform.LocalContext.current
+        var welcomeEnabled by remember { mutableStateOf(com.meridian.shell.welcome.WelcomeBanner.isWelcomeEnabled(context)) }
+        Row(
+            Modifier.fillMaxWidth().padding(vertical = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(Modifier.weight(1f)) {
+                Text("Show welcome screen on new session", color = Color(0xFFE8E8E8), fontFamily = FontFamily.Monospace, fontSize = 13.sp)
+                Text("Render ANSI dashboard upon creating sessions", color = Color(0xFF5A5A5A), fontFamily = FontFamily.Monospace, fontSize = 11.sp)
+            }
+            Switch(
+                checked = welcomeEnabled,
+                onCheckedChange = {
+                    welcomeEnabled = it
+                    com.meridian.shell.welcome.WelcomeBanner.setWelcomeEnabled(context, it)
+                },
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = Color.White,
+                    checkedTrackColor = Color(0xFF38BDF8)
+                )
+            )
+        }
+
         Spacer(Modifier.height(32.dp))
         Divider(color = Color(0xFF1A1A1A))
         Spacer(Modifier.height(24.dp))

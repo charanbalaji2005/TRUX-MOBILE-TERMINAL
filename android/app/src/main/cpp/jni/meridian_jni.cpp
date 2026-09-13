@@ -177,6 +177,21 @@ Java_com_meridian_shell_PtyBridge_nativeWrite(
 }
 
 // ---------------------------------------------------------------------------
+// nativeFeedOutput
+// ---------------------------------------------------------------------------
+JNIEXPORT void JNICALL
+Java_com_meridian_shell_PtyBridge_nativeFeedOutput(
+        JNIEnv* env, jobject, jlong handle, jbyteArray data, jint length) {
+    auto core = lookup(handle);
+    if (!core || !data || length <= 0) return;
+
+    jbyte* buf = env->GetByteArrayElements(data, nullptr);
+    if (!buf) return;
+    core->feed_output(reinterpret_cast<const char*>(buf), static_cast<size_t>(length));
+    env->ReleaseByteArrayElements(data, buf, JNI_ABORT);
+}
+
+// ---------------------------------------------------------------------------
 // nativeResize
 // ---------------------------------------------------------------------------
 JNIEXPORT void JNICALL

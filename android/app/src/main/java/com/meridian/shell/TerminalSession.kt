@@ -54,6 +54,13 @@ class TerminalSession(
         PtyBridge.nativeWrite(handle, bytes, bytes.size)
     }
 
+    fun feedOutput(text: String) = feedOutput(text.toByteArray(Charsets.UTF_8))
+
+    fun feedOutput(bytes: ByteArray) {
+        if (exited) return
+        PtyBridge.nativeFeedOutput(handle, bytes, bytes.size)
+    }
+
     fun resize(newCols: Int, newRows: Int, force: Boolean = false) {
         if (newCols <= 0 || newRows <= 0) return
         if (!force && newCols == cols && newRows == rows) return

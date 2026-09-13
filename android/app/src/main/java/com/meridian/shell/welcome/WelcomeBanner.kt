@@ -34,7 +34,7 @@ object WelcomeBanner {
     /**
      * Builds the complete ANSI dashboard as a string ready to write to terminal output.
      */
-    fun generateBanner(cols: Int = 80, color: Boolean = true): String {
+    fun generateBanner(cols: Int = 36, rows: Int = 24, color: Boolean = true): String {
         val sb = StringBuilder()
 
         val rst = if (color) "\u001B[0m" else ""
@@ -54,110 +54,58 @@ object WelcomeBanner {
             return " ".repeat(left) + text
         }
 
-        val effectiveCols = if (cols < 30) 30 else cols
+        val effectiveCols = if (cols < 28) 28 else cols
+        val isCompressed = rows <= 18 || cols < 32
 
-        sb.append("\n")
+        sb.append("\r\n")
 
-        // 1. Header & TRUX Branding
-        if (effectiveCols >= 56) {
-            // Medium to Wide
-            sb.append(padCenter("$dim${drk}WELCOME TO$rst", effectiveCols, 10)).append("\n")
-            sb.append(padCenter("$acc${bold}████████╗██████╗ ██╗   ██╗██╗  ██╗$rst", effectiveCols, 34)).append("\n")
-            sb.append(padCenter("$acc${bold}╚══██╔══╝██╔══██╗██║   ██║╚██╗██╔╝$rst", effectiveCols, 34)).append("\n")
-            sb.append(padCenter("$slv${bold}   ██║   ██████╔╝██║   ██║ ╚███╔╝ $rst", effectiveCols, 34)).append("\n")
-            sb.append(padCenter("$slv${bold}   ██║   ██╔══██╗██║   ██║ ██╔██╗ $rst", effectiveCols, 34)).append("\n")
-            sb.append(padCenter("$gry${bold}   ██║   ██║  ██║╚██████╔╝██╔╝ ██╗$rst", effectiveCols, 34)).append("\n")
-            sb.append(padCenter("$drk   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝$rst", effectiveCols, 34)).append("\n")
-            sb.append(padCenter("$slv$bold A N D R O I D   T E R M I N A L $rst", effectiveCols, 31)).append("\n\n")
-            sb.append(padCenter("$gry$dim$bold B U I L D   ›   E X P L O R E   ›   B E Y O N D $rst", effectiveCols, 43)).append("\n\n")
-        } else if (effectiveCols >= 42) {
-            // Compact Header
-            sb.append(padCenter("$dim${drk}WELCOME TO$rst", effectiveCols, 10)).append("\n")
-            sb.append(padCenter("$acc${bold}████████╗██████╗ ██╗   ██╗██╗  ██╗$rst", effectiveCols, 34)).append("\n")
-            sb.append(padCenter("$slv${bold}╚══██╔══╝██╔══██╗██║   ██║╚██╗██╔╝$rst", effectiveCols, 34)).append("\n")
-            sb.append(padCenter("$gry${bold}   ██║   ██████╔╝╚██████╔╝██╔╝ ██╗$rst", effectiveCols, 34)).append("\n")
-            sb.append(padCenter("$slv$bold A N D R O I D   T E R M I N A L $rst", effectiveCols, 31)).append("\n")
-            sb.append(padCenter("$gry$dim B U I L D  ›  E X P L O R E  ›  B E Y O N D $rst", effectiveCols, 41)).append("\n\n")
+        // 1. Header & TRUX Logo (Crisp, solid block art - completely unambiguous TRUX)
+        val l1 = "█████   ████    █   █   █   █"
+        val l2 = "  █     █   █   █   █    █ █ "
+        val l3 = "  █     ████    █   █     █  "
+        val l4 = "  █     █  █    █   █    █ █ "
+        val l5 = "  █     █   █    ███    █   █"
+
+        if (isCompressed) {
+            // Compressed layout: Fits comfortably in 10-14 rows when virtual keyboard is open
+            sb.append(padCenter("$acc$bold$l1$rst", effectiveCols, 29)).append("\r\n")
+            sb.append(padCenter("$acc$bold$l2$rst", effectiveCols, 29)).append("\r\n")
+            sb.append(padCenter("$slv$bold$l3$rst", effectiveCols, 29)).append("\r\n")
+            sb.append(padCenter("$slv$bold$l4$rst", effectiveCols, 29)).append("\r\n")
+            sb.append(padCenter("$gry$bold$l5$rst", effectiveCols, 29)).append("\r\n")
+            sb.append(padCenter("$slv$bold ANDROID TERMINAL • BEYOND $rst", effectiveCols, 27)).append("\r\n")
+            sb.append(padCenter("$wht Type 'help' | 'trux' | 'pkg' $rst", effectiveCols, 28)).append("\r\n")
         } else {
-            // Minimal Header
-            sb.append(padCenter("$dim${drk}WELCOME TO$rst", effectiveCols, 10)).append("\n")
-            sb.append(padCenter("$acc${bold}T R U X$rst", effectiveCols, 7)).append("\n")
-            sb.append(padCenter("$slv$bold ANDROID TERMINAL $rst", effectiveCols, 18)).append("\n")
-            sb.append(padCenter("$gry$dim BUILD › EXPLORE › BEYOND $rst", effectiveCols, 24)).append("\n\n")
+            // Standard layout: Full height viewport (keyboard closed)
+            sb.append(padCenter("$dim${drk}WELCOME TO$rst", effectiveCols, 10)).append("\r\n")
+            sb.append(padCenter("$acc$bold$l1$rst", effectiveCols, 29)).append("\r\n")
+            sb.append(padCenter("$acc$bold$l2$rst", effectiveCols, 29)).append("\r\n")
+            sb.append(padCenter("$slv$bold$l3$rst", effectiveCols, 29)).append("\r\n")
+            sb.append(padCenter("$slv$bold$l4$rst", effectiveCols, 29)).append("\r\n")
+            sb.append(padCenter("$gry$bold$l5$rst", effectiveCols, 29)).append("\r\n")
+            sb.append(padCenter("$slv$bold A N D R O I D   T E R M I N A L $rst", effectiveCols, 31)).append("\r\n")
+            sb.append(padCenter("$gry$dim BUILD  ›  EXPLORE  ›  BEYOND $rst", effectiveCols, 28)).append("\r\n")
+
+            sb.append("\r\n")
+
+            // Feature Section (Curated bullet items, <= 30 chars wide, zero wrapping)
+            val r1 = " • Linux Env     • Secure Lock"
+            val r2 = " • Packages      • File Viewer"
+            val r3 = " • AI Assistant  • High Perf  "
+            sb.append(padCenter("$slv$r1$rst", effectiveCols, r1.length)).append("\r\n")
+            sb.append(padCenter("$slv$r2$rst", effectiveCols, r2.length)).append("\r\n")
+            sb.append(padCenter("$slv$r3$rst", effectiveCols, r3.length)).append("\r\n")
+
+            sb.append("\r\n")
+
+            // Command hints (compact, <= 34 chars wide, zero wrapping)
+            sb.append(" $gry$dim" + "Type " + "$wht'help'$gry$dim" + "     → Show commands$rst\r\n")
+            sb.append(" $gry$dim" + "Type " + "$wht'trux'$gry$dim" + "     → Explore TRUX$rst\r\n")
+            sb.append(" $gry$dim" + "Type " + "$wht'pkg'$gry$dim" + "      → Manage packages$rst\r\n")
+            sb.append(" $gry$dim" + "Type " + "$wht'trux ai'$gry$dim" + "  → AI assistant$rst\r\n")
         }
 
-        // 2. Feature Section
-        if (effectiveCols >= 76) {
-            // 3 Columns box
-            val colW = 23
-            val lineTop = "┌" + "─".repeat(colW + 2) + "┬" + "─".repeat(colW + 2) + "┬" + "─".repeat(colW + 2) + "┐"
-            val lineMid = "├" + "─".repeat(colW + 2) + "┼" + "─".repeat(colW + 2) + "┼" + "─".repeat(colW + 2) + "┤"
-            val lineBot = "└" + "─".repeat(colW + 2) + "┴" + "─".repeat(colW + 2) + "┴" + "─".repeat(colW + 2) + "┘"
-
-            fun fmtCell(label: String): String {
-                val pad = (colW - label.length).coerceAtLeast(0)
-                return " $label" + " ".repeat(pad + 1)
-            }
-
-            sb.append(padCenter("$drk$lineTop$rst", effectiveCols, lineTop.length)).append("\n")
-            val row1 = "$drk│$slv${fmtCell(">_ Powerful Linux Env")}$drk│$slv${fmtCell("📦 Full Package Ecosys")}$drk│$slv${fmtCell("🤖 Integrated AI Assist")}$drk│$rst"
-            sb.append(padCenter(row1, effectiveCols, lineTop.length)).append("\n")
-            sb.append(padCenter("$drk$lineMid$rst", effectiveCols, lineMid.length)).append("\n")
-            val row2 = "$drk│$slv${fmtCell("🔒 Secure App Lock")}$drk│$slv${fmtCell("🖼️ Universal Viewer")}$drk│$slv${fmtCell("⚡ Lightweight High Perf")}$drk│$rst"
-            sb.append(padCenter(row2, effectiveCols, lineTop.length)).append("\n")
-            sb.append(padCenter("$drk$lineBot$rst", effectiveCols, lineBot.length)).append("\n\n")
-
-        } else if (effectiveCols >= 50) {
-            // 2 Columns box
-            val colW = 22
-            val lineTop = "┌" + "─".repeat(colW + 2) + "┬" + "─".repeat(colW + 2) + "┐"
-            val lineMid = "├" + "─".repeat(colW + 2) + "┼" + "─".repeat(colW + 2) + "┤"
-            val lineBot = "└" + "─".repeat(colW + 2) + "┴" + "─".repeat(colW + 2) + "┘"
-
-            fun fmtCell(label: String): String {
-                val pad = (colW - label.length).coerceAtLeast(0)
-                return " $label" + " ".repeat(pad + 1)
-            }
-
-            sb.append(padCenter("$drk$lineTop$rst", effectiveCols, lineTop.length)).append("\n")
-            val row1 = "$drk│$slv${fmtCell(">_ Linux Environment")}$drk│$slv${fmtCell("📦 Package Ecosystem")}$drk│$rst"
-            sb.append(padCenter(row1, effectiveCols, lineTop.length)).append("\n")
-            sb.append(padCenter("$drk$lineMid$rst", effectiveCols, lineMid.length)).append("\n")
-            val row2 = "$drk│$slv${fmtCell("🤖 AI Assistant")}$drk│$slv${fmtCell("🔒 Secure App Lock")}$drk│$rst"
-            sb.append(padCenter(row2, effectiveCols, lineTop.length)).append("\n")
-            sb.append(padCenter("$drk$lineMid$rst", effectiveCols, lineMid.length)).append("\n")
-            val row3 = "$drk│$slv${fmtCell("🖼️ Universal Viewer")}$drk│$slv${fmtCell("⚡ High Performance")}$drk│$rst"
-            sb.append(padCenter(row3, effectiveCols, lineTop.length)).append("\n")
-            sb.append(padCenter("$drk$lineBot$rst", effectiveCols, lineBot.length)).append("\n\n")
-
-        } else {
-            // 1 Column box or list
-            val innerW = (effectiveCols - 4).coerceAtLeast(28).coerceAtMost(38)
-            val lineTop = "┌" + "─".repeat(innerW + 2) + "┐"
-            val lineBot = "└" + "─".repeat(innerW + 2) + "┘"
-
-            fun fmtRow(label: String): String {
-                val pad = (innerW - label.length).coerceAtLeast(0)
-                return "$drk│$slv $label" + " ".repeat(pad + 1) + "$drk│$rst"
-            }
-
-            sb.append(padCenter("$drk$lineTop$rst", effectiveCols, lineTop.length)).append("\n")
-            sb.append(padCenter(fmtRow(">_ Powerful Linux Env"), effectiveCols, lineTop.length)).append("\n")
-            sb.append(padCenter(fmtRow("📦 Full Package Ecosystem"), effectiveCols, lineTop.length)).append("\n")
-            sb.append(padCenter(fmtRow("🤖 Integrated AI Assistant"), effectiveCols, lineTop.length)).append("\n")
-            sb.append(padCenter(fmtRow("🔒 Secure App Lock"), effectiveCols, lineTop.length)).append("\n")
-            sb.append(padCenter(fmtRow("🖼️ Universal File Viewer"), effectiveCols, lineTop.length)).append("\n")
-            sb.append(padCenter(fmtRow("⚡ High Performance"), effectiveCols, lineTop.length)).append("\n")
-            sb.append(padCenter("$drk$lineBot$rst", effectiveCols, lineBot.length)).append("\n\n")
-        }
-
-        // 3. Command Hints
-        val hintIndent = if (effectiveCols > 50) "  " else " "
-        sb.append("$hintIndent$gry$dim" + "Type " + "$wht'help'$gry$dim" + "       → Show available commands$rst\n")
-        sb.append("$hintIndent$gry$dim" + "Type " + "$wht'trux'$gry$dim" + "       → Explore TRUX tools$rst\n")
-        sb.append("$hintIndent$gry$dim" + "Type " + "$wht'pkg'$gry$dim" + "        → Manage packages$rst\n")
-        sb.append("$hintIndent$gry$dim" + "Type " + "$wht'trux ai'$gry$dim" + "    → Use AI assistant$rst\n")
-        sb.append("\n")
+        sb.append("\r\n")
 
         return sb.toString()
     }

@@ -26,6 +26,7 @@ public:
     bool start(const PtySpawnSpec& spec);
 
     void write_input(const char* data, size_t len);
+    void feed_output(const char* data, size_t len);
     void resize(int cols, int rows);
     void signal(int sig);
     bool alive() const { return alive_.load(std::memory_order_relaxed); }
