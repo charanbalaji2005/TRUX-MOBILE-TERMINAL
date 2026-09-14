@@ -58,6 +58,7 @@ bool Config::load() {
         auto eq = trimmed.find('=');
         if (eq == std::string::npos) continue;
         std::string key = trim(trimmed.substr(0, eq));
+        if (key.empty()) continue; // malformed line like "=value"; nothing sane to key it by
         std::string value = trim(trimmed.substr(eq + 1));
         // Strip one layer of surrounding double quotes, if present, so
         // both `key=value` and `key="value"` round-trip identically.
